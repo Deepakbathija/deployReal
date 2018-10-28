@@ -4,7 +4,7 @@ var express			=require("express"),
 	mongoose		=require("mongoose"),
 	flash			=require("connect-flash"),
 	methodOverride=require("method-override"),
-	seedDB 			=require("./newSeeds"),
+	// seedDB 			=require("./newSeeds"),
 	Property 		=require("./models/propDetails"),
 	User            =require("./models/user");//(v3)
 	Report          =require("./models/reports");
@@ -21,8 +21,8 @@ var currentPage=parseInt(0),
 
 //mongoose.connect("mongodb://localhost/realestate",{useNewUrlParser: true});
 mongoose.connect("mongodb://realuser12345:realuser12345@ds119110.mlab.com:19110/realestate",{useNewUrlParser: true});
+
 app.set("view engine","ejs");
-//mongodb://<realuser12345>:<realuser12345>@ds119110.mlab.com:19110/realestate
 
 app.use(methodOverride("_method"));//Tells node to look for pattern _method in url for eg "_method=PUT" 
 app.use(flash());
@@ -95,17 +95,30 @@ var Counter = mongoose.model('counter', CounterSchema);
 
 
 app.get("/",function(req,res){
-	Property.find()
-	.sort({createdOn:-1})
-	.limit(4)
-	.exec(function(err,prop){
+	Property.aggregate([{$group: {_id: "$propStatus"}}],function(err,alltypes){
 		if(err){
-			console.log(err);
-		}else{
-			console.log("successful landing");
-			res.render("landing-page1",{prop:prop});
 		}
-	});
+		else{
+			var query=Property.find({propStatus: "2"}).limit(4).sort({'_id': -1})
+			query.exec(function(err,sale){
+				if(err){
+					console.log(err)
+				}
+				else{
+					var query=Property.find({propStatus: "1"}).limit(4).sort({'_id': -1})
+					query.exec(function(err,rent){
+						if(err){
+							console.log(err)
+						}
+						else{
+							res.render("landing-page1",{type: alltypes,rent: rent,sale: sale});
+						}
+					})
+						
+				}
+			})
+		}
+	})
 });
 
 //==================================================================================================
@@ -184,14 +197,9 @@ app.get("/list/:cp",function(req,res){
 	});	
 });
 
-app.post("/list/search",function(req,res){
-	state=req.body.state;
-	city=req.body.city;
-	type=req.body.status;
-	console.log("A="+state);
-	console.log("A="+city);
-	console.log("A="+type);
-	Property.find({},function(err,prop){
+app.get("/list/search",function(req,res){
+	if(req.query.propDetails){
+		Property.find({$or:[{propRooms:req.query.propDetails.propRooms},{ bathrooms:req.query.propDetails.bathrooms},{ garages:req.query.propDetails.garages}]},{ sort: { '_id' : -1 } },function(err,prop){
 		if(err){
 			console.log(err);
 		}else{
@@ -204,7 +212,8 @@ app.post("/list/search",function(req,res){
 				res.render("properties/property-list",{prop:prop,co:co,cp:currentPage});
 			});
 		}
-	}).limit(1);
+	});
+	}
 });
 
 
@@ -246,7 +255,7 @@ app.put("/properties/:id",function(req,res){
 					report.reportedby.username=req.user.username,
 					report.reportedby.email=req.user.email
 					report.save();
-					property.reports.push(report);
+					property.reports.unshift(report);
 					property.save()
 					req.flash("success","Your report is submitted action will be taken very soon!")
 					res.redirect("/list/properties/"+req.params.id);
@@ -407,16 +416,45 @@ app.get("/admin",isAdmin,function(req,res){
 		if(err){
 			console.log(err);
 		}else{
-			res.render("admin/admin",{prop:prop});
+			User.find({},function(req,user){
+				if(err){
+					console.log(err)
+				}
+				else{
+					res.render("admin/admin",{prop:prop,user_count:user.length});
+
+				}
+			})
+			
 
 		}
 	});
 });
 
+app.get("/admin/:id/reportDetails",isAdmin,function(req,res){
+	Property.findById(req.params.id).populate("reports").sort({'rep': -1}).exec(function(err,prop){
+		if(err){
+			console.log(err);
+		}else{
+			res.render("admin/reportDetails",{prop:prop});
+		}
+	});
+});
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
+app.get("/admin/:id/deleteprop",isAdmin,function(req,res){
+	Property.findByIdAndRemove(req.params.id,function(err,foundProp){
+		if(err){
+			console.log(err);
+		}else{
+			console.log("Prop deleted")
+			req.flash("success", foundProp.propTitle  +" Property deleted successfully ")
+			res.redirect("/");
+		}
+	});
+})
 
 
 

@@ -47,31 +47,40 @@
 
 <div style="margin: auto;" class="search-trip">
 	<h2><i class="fas fa-filter"></i> Filter by</h2>
-		<form  action="/list/search" method="POST" >
+		<form action="/list/search" method="POST" >
 			<div class="row" >
 				<div class="col-lg-3 col-md-6">
-					<label for="state">State</label>
-						<select required id="state" name="propDetails[state]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-							<option selected></option>
-						  <option value="1">Maharashtra</option>
-						  <option value="2">Gujrat</option>
-						</select>
+					<label for="rooms">Rooms</label>
+					<select  id="rooms" name="propDetails[propRooms]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+						<option selected></option>
+	    				<option value="1">1</option>
+	    				<option value="2">2</option>
+	    				<option value="3">3</option>
+	    				<option value="4">4</option>
+	    				<option value="5">>5</option>
+	    		</select>
 				</div>
 				<div class="col-lg-3 col-md-6">
-					<label for="city">City</label>
-						<select id="city" name="propDetails[city]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+					<label for="bathrooms">Bathrooms</label>
+						<select  id="bathrooms" name="propDetails[bathrooms]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
 							<option selected></option>
-					    <option value="1">Mumbai</option>
-					    <option value="2">Ahmedabad</option>
-					  </select>
+	    					<option value="1">1</option>
+	    					<option value="2">2</option>
+	    					<option value="3">3</option>
+	    					<option value="4">4</option>
+	    					<option value="5">>5</option>
+	    			</select>
 				</div>
 				<div class="col-lg-3 col-md-6">
-					<label for="status">Status</label>
-						<select id="status" name="propDetails[propStatus]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-							<option selected></option>
-					    <option value="1">Rent</option>
-					    <option value="2">Sale</option>
-					  </select>
+					<label for="garages">Garages</label>
+					<select id="garages" name="propDetails[garages]" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+						<option selected></option>
+	    			<option value="1">1</option>
+	    			<option value="2">2</option>
+	    			<option value="3">3</option>
+	    			<option value="4">4</option>
+	    			<option value="5">>5</option>
+	    		</select>
 				</div>
 				<div class="col-lg-3 col-md-6" >
 				

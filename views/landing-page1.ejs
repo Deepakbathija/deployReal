@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/css/landing-page1.css">
 <script type="text/javascript" src="/js/dropdown-select.js"></script>
 
+
 	<title></title>
 </head>
 
@@ -16,7 +17,6 @@
   		<div class="col-lg-8">
         <h1 class="search-header">Find Your Dream Home</h1>
         <h5>We have over millon dream properties for you</h5>
-        
       </div>
       						<div style="margin: auto;" class="search-trip">
       							<form  action="/list" method="GET" >
@@ -66,37 +66,38 @@
 				<h2>Properties for Sale</h2>
 			</div>
 			<div class="col-md-6">
-				<button style="float: right;">View All</button><!--wILL NOT WORK AS RESPONSIVE-->
+				<button style="float: right;">View All</button>
 			</div>
-				 <!-- <button style="float: right;">View All</button> wILL NOT WORK AS RESPONSIVE -->
 		</div>
 	</div>
 	<div class="row">
 		<!-- For loop for backend -->
-		<% prop.forEach(function(prop){%>
+		<% sale.forEach(function(sale){%>
 		<div class="col-lg-3 col-md-6  col-xs-12" style="margin-bottom: 40px;" >
-			<div class="textWithBlurredBg">
-				<img src="<%= prop.img1 %>" alt="del">
-					<h2>View Property</h2>
+			<div class="textWithBlurredBg img-thumbnail">
+				<img  src="<%= sale.img1 %>" alt="del">
+					<h2>
+						<a href="/list/properties/<%= sale.id %>" style="margin-left: -209px; text-decoration: none;">View Property</a>
+							</h2>
 			</div>
 			<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
-				<h3><%= prop.propTitle%></h3>
+				<h3><%= sale.propTitle%></h3>
 					<div class="row">
 						<div class="col-md-6">
 							<i class="fa fa-bed"></i>
-							<span> <%= prop.propRooms%> Bedrooms</span>
+							<span> <%= sale.propRooms%> Bedrooms</span>
 						</div>
 						<div class="col-md-6">
 							<i class="fa fa-bath"></i>
-							<span> <%= prop.bathrooms%> Bathrooms</span>
+							<span> <%= sale.bathrooms%> Bathrooms</span>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<i class="fa fa-warehouse"></i>
-							<span> <%= prop.garages%> Garages</span>
+							<span> <%= sale.garages%> Garages</span>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<i class="fa fa-object-group"></i>
-							<span> <%= prop.propArea%> SQ FT</span>
+							<span> <%= sale.propArea%> SQ FT</span>
 						</div>
 					</div>
 				</div>
@@ -105,6 +106,13 @@
 			<!-- For loop for backend ends -->	
 			</div>
 </div>
+
+
+<!-- 
+Properties fir Rent Area Starts
+
+ -->
+
 <div class="container-fluid" style="margin-top: 55px;">
 	<div class="section-title">
 		<div class="row">
@@ -117,131 +125,44 @@
 			</div>
 				 <!-- <button style="float: right;">View All</button> wILL NOT WORK AS RESPONSIVE -->
 		</div>
-			</div>
-			<div class="container-fluid">
-			
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-6  col-xs-12">
-				<div class="textWithBlurredBg">
-						<img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" alt="del">
-							<h2>
-								<a href="www.google.com" style="margin-left: -209px; text-decoration: none;" >View Property</a>
+	</div>
+	<div class="row">
+		<!-- For loop for backend -->
+		<% rent.forEach(function(rent){%>
+		<div class="col-lg-3 col-md-6  col-xs-12" style="margin-bottom: 40px;" >
+			<div class="textWithBlurredBg">
+				<img src="<%= rent.img1 %>" alt="del">
+					<h2>
+						<a href="/list/properties/<%= rent.id %>" style="margin: auto; text-decoration: none;">View Property</a>
 							</h2>
-
-				</div>
-
-				<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
-					<h3>Luxury Villa</h3>
+			</div>
+			<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
+				<h3><%= sale.propTitle%></h3>
 					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="col-md-6">
 							<i class="fa fa-bed"></i>
-							<span> 6 Bedrooms</span>
-												
+							<span> <%= rent.propRooms%> Bedrooms</span>
 						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
+						<div class="col-md-6">
 							<i class="fa fa-bath"></i>
-							<span> 3 Bathrooms</span>
+							<span> <%= rent.bathrooms%> Bathrooms</span>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<i class="fa fa-warehouse"></i>
-							<span> 2 Garages</span>
+							<span> <%= rent.garages%> Garages</span>
 						</div>
 						<div class="col-md-6 col-sm-6 col-xs-6">
 							<i class="fa fa-object-group"></i>
-							<span> 720 SQ FT</span>
+							<span> <%= rent.propArea%> SQ FT</span>
 						</div>
 					</div>
-					
 				</div>
 			</div>
-			<div class="col-lg-3 col-md-6  col-xs-12">
-				<div class="textWithBlurredBg">
-						<img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" alt="del">
-							<h2>View Property</h2>
-				</div>
-
-				<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
-					<h3>Luxury Villa</h3>
-					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bed"></i>
-							<span> 6 Bedrooms</span>
-												
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bath"></i>
-							<span> 3 Bathrooms</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-warehouse"></i>
-							<span> 2 Garages</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-object-group"></i>
-							<span> 720 SQ FT</span>
-						</div>
-					</div>
-					
-				</div>
+			<% }); %>
+			<!-- For loop for backend ends -->	
 			</div>
-			<div class="col-lg-3 col-md-6  col-xs-12">
-				<div class="textWithBlurredBg">
-						<img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" alt="del">
-							<h2>View Property</h2>
-				</div>
+		
 
-				<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
-					<h3>Luxury Villa</h3>
-					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bed"></i>
-							<span> 6 Bedrooms</span>
-												
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bath"></i>
-							<span> 3 Bathrooms</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-warehouse"></i>
-							<span> 2 Garages</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-object-group"></i>
-							<span> 720 SQ FT</span>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-6  col-xs-12">
-				<div class="textWithBlurredBg">
-						<img src="https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg" alt="del">
-							<h2>View Property</h2>
-				</div>
-
-				<div class="content" style="background-color: white; margin-bottom: 0; margin-top: 0; vertical-align: top; margin-top: -5px; padding: 15px;">
-					<h3>Luxury Villa</h3>
-					<div class="row">
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bed"></i>
-							<span> 6 Bedrooms</span>
-												
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-bath"></i>
-							<span> 3 Bathrooms</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-warehouse"></i>
-							<span> 2 Garages</span>
-						</div>
-						<div class="col-md-6 col-sm-6 col-xs-6">
-							<i class="fa fa-object-group"></i>
-							<span> 720 SQ FT</span>
-						</div>
-					</div>
 					
 				</div>
 			</div>	
