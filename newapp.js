@@ -420,6 +420,6 @@ function escapeRegex(text) {
 
 
 
-app.listen(4004,function(){
-	console.log("server started at port 4004")
+app.listen(process.env.PORT || 4004, function(){
+   console.log("started at 4004");
 });
